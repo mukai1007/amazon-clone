@@ -7,8 +7,11 @@ import { BsCart3 } from 'react-icons/bs';
 import { AiOutlineMenu } from 'react-icons/ai';
 import flag from '/public/flag.png'
 import logo from '/public/logo.webp'
+import { useSession, signIn, signOut } from "next-auth/react"
 
 function Header() {
+    const { data: session } = useSession()
+    
   return (
     <header>
         {/* Top nav */}
@@ -64,11 +67,11 @@ function Header() {
             </div>
 
             {/* Account & List */}
-            <div className='hidden lg:flex link'>
-                <div className='text-white'>
+            <div className='hidden sm:flex link'>
+                <div onClick={() => !session ? signIn() : signOut()} className='text-white'>
                     <div className='text-[12px]'>
-                        Hello
-                        <span>, sign in</span>
+                        Hello,
+                        {session ? ` ${session?.user?.name}` : ' sign In'}
                     </div>
 
                     <div className='flex items-center text-[14px] font-medium'>
@@ -79,7 +82,7 @@ function Header() {
             </div>
 
             {/* Returns & Orders */}
-            <div className='hidden lg:flex link'>
+            <div className='hidden sm:flex link'>
                 <div className='text-white'>
                     <div className='text-[12px]'>
                         Returns
