@@ -8,9 +8,14 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import flag from '/public/flag.png'
 import logo from '/public/logo.webp'
 import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { selectItems } from '../slices/cartSlice';
 
 function Header() {
     const { data: session } = useSession()
+    const router = useRouter()
+    const items = useSelector(selectItems)
     
   return (
     <header>
@@ -23,6 +28,7 @@ function Header() {
                     <AiOutlineMenu size={30} color='white'/>
                 </div>
                 <Image
+                    onClick={() => router.push('/')}
                     src={logo}
                     width={100}
                     height={20} 
@@ -70,7 +76,7 @@ function Header() {
             <div className='hidden sm:flex link'>
                 <div onClick={() => !session ? signIn() : signOut()} className='text-white'>
                     <div className='text-[12px]'>
-                        Hello,
+                        Hello ,
                         {session ? ` ${session?.user?.name}` : ' sign In'}
                     </div>
 
@@ -93,12 +99,14 @@ function Header() {
                     </div>
                 </div>
             </div>
-
+ 
             {/* Cart */}
-            <div className='relative link'>
+            <div className='relative link'
+                onClick={() => router.push('/checkout')}
+            >
                 <div className='flex items-end'>
                     <span className='absolute text-center right-[47px] top-0 rounded-full text-[15px] w-[20px]'>
-                        <div className='text-orange-400 bg-gray-900 h-[16px] font-medium'>0</div>
+                        <div className='text-orange-400 bg-gray-900 h-[16px] font-medium'>{items.length}</div>
                     </span>
                     <div className='flex justify-center items-center'>
                         <BsCart3 size={30} color='white'/>

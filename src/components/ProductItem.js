@@ -3,11 +3,27 @@ import Image from 'next/image'
 import { AiFillStar } from 'react-icons/ai';
 import { useState } from 'react';
 import prime from '/public/prime.png'
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../slices/cartSlice'
 
 function ProductItem({title, price,description, category, image, rating}) {
 
     const [rate] = useState(Math.round(rating.rate))
     const [hasPrime] = useState(Math.round(rating.rate) > 3)
+    const dispatch = useDispatch()
+
+    const addItemToCart = () => {
+        const product = {
+            title, 
+            price,
+            description, 
+            category, 
+            image, 
+            rating
+        }
+
+        dispatch(addToCart(product))
+    }
  
     return (
         <div className='relative flex flex-col m-5 p-10 bg-white z-30'>
@@ -39,7 +55,7 @@ function ProductItem({title, price,description, category, image, rating}) {
                     <p className='text-xs text-gray-500'>FREE Next-day Delivery</p>
                 </div>}
             
-            <button className='mt-auto button'>Add to Cart</button>
+            <button onClick={addItemToCart} className='mt-auto button'>Add to Cart</button>
         </div>
     )
 }
