@@ -18,7 +18,7 @@ function Header() {
     const items = useSelector(selectItems)
     
   return (
-    <header>
+    <header className='fixed top-0 left-0 w-full z-30'>
         {/* Top nav */}
         <div className='flex items-center justify-between bg-gray-900 p-1 flex-grow py-2 w-full h-[60px]'>
             
@@ -30,10 +30,10 @@ function Header() {
                 <Image
                     onClick={() => router.push('/')}
                     src={logo}
+                    alt='img'
                     width={100}
                     height={20} 
-                    objectFit='contain'
-                    className='cursor-pointer'
+                    className='object-contain cursor-pointer'
                 />
             </div>
 
@@ -53,7 +53,7 @@ function Header() {
                     <div className='pr-1'>All</div>
                     <RiArrowDownSFill size={15}/>
                 </div>
-                <input class="block w-full h-[40px] border-none border-transparent focus:border-transparent focus:outline-none pl-1" type="text" placeholder='Search Amazon'/>
+                <input className="block w-full h-[40px] border-none border-transparent focus:border-transparent focus:outline-none pl-1" type="text" placeholder='Search Amazon'/>
                 <div className='flex items-center justify-center bg-orange-300 hover:bg-orange-400 h-[40px] cursor-pointer rounded-r-md p-[5px] px-2'>
                     <GoSearch size={20}/>
                 </div>
@@ -63,10 +63,10 @@ function Header() {
             <div className='hidden lg:flex link'>
                 <Image
                     src={flag}
+                    alt='img'
                     width={30}
                     height={25}
-                    objectFit='contain'
-                    className='pr-1'
+                    className='object-contain pr-1'
                 />
                 <div className='text-white font-medium'>KG</div>
                 <RiArrowDownSFill size={15} color='gray'/>
